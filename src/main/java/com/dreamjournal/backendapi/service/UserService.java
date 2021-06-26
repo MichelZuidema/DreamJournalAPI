@@ -14,7 +14,7 @@ public class UserService {
 
     public ApiResponse validateUser(User userRequest) {
         if(StringUtils.isAnyEmpty(userRequest.getName(), userRequest.getPassword())) {
-            return new ApiResponse(false, "the registration request was not valid, please try again.");
+            return new ApiResponse(false, "The registration request was not valid, please try again.");
         }
 
         if(userRepository.existsByName(userRequest.getName())) {
