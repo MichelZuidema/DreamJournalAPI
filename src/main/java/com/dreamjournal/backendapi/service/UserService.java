@@ -1,11 +1,14 @@
 package com.dreamjournal.backendapi.service;
 
+import com.dreamjournal.backendapi.entity.Story;
 import com.dreamjournal.backendapi.entity.User;
 import com.dreamjournal.backendapi.model.response.ApiResponse;
 import com.dreamjournal.backendapi.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,5 +25,20 @@ public class UserService {
         }
 
         return new ApiResponse(true);
+    }
+
+    public Boolean doesUserExist(Integer id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        return userOptional.isPresent();
+    }
+
+    public Boolean doesUserExistWithName(String name) {
+        User user = userRepository.findByName(name);
+
+        if(user != null)
+            return true;
+
+        return false;
     }
 }

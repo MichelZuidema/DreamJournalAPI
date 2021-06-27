@@ -36,4 +36,16 @@ public class UserController {
 
         return ResponseEntity.ok(new ApiResponse(true, "User Added!", user));
     }
+
+    @GetMapping(path = "/name/{name}")
+    public @ResponseBody
+    ResponseEntity getUserByName(@PathVariable String name) {
+        if (userService.doesUserExistWithName(name)) {
+            User user = userRepository.findByName(name);
+
+            return ResponseEntity.ok(new ApiResponse(true, user));
+        }
+
+        return ResponseEntity.ok(new ApiResponse(false, "User not found!"));
+    }
 }
