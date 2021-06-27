@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,6 +20,18 @@ public class StoryController {
 
     @Autowired
     private StoryService storyService;
+
+    @GetMapping(path = "/")
+    public @ResponseBody
+    ResponseEntity getAllStories() {
+        ArrayList<Story> stories = (ArrayList<Story>) storyRepository.findAll();
+
+        if(stories.size() > 0) {
+            return ResponseEntity.ok(new ApiResponse(true, stories));
+        }
+
+        return ResponseEntity.ok(new ApiResponse(false, "No public stories found!"));
+    }
 
     @PostMapping(path = "/add")
     public @ResponseBody ResponseEntity addStory(@RequestBody Story story) {
