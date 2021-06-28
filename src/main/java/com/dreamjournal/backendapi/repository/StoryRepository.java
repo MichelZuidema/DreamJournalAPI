@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface StoryRepository extends CrudRepository<Story, Integer> {
     List<Story> findBySecure(Boolean secure);
+    List<Story> findByDeleted(Boolean deleted);
     List<Story> findByCreatedBy(User user);
 }

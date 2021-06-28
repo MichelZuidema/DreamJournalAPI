@@ -33,13 +33,13 @@ public class StoryController {
     @GetMapping(path = "/")
     public @ResponseBody
     ResponseEntity getAllStories() {
-        ArrayList<Story> stories = (ArrayList<Story>) storyRepository.findAll();
+        ArrayList<Story> stories = (ArrayList<Story>) storyRepository.findByDeleted(false);
 
         if(stories.size() > 0) {
             return ResponseEntity.ok(new ApiResponse(true, stories));
         }
 
-        return ResponseEntity.ok(new ApiResponse(false, "No public stories found!"));
+        return ResponseEntity.ok(new ApiResponse(false, "No stories found!"));
     }
 
     @GetMapping(path = "/user/{id}")
@@ -76,6 +76,21 @@ public class StoryController {
             Story story = storyRepository.findById(id).get();
 
             return ResponseEntity.ok(new ApiResponse(true, story));
+        }
+
+        return ResponseEntity.ok(new ApiResponse(false, "Story not found!"));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public @ResponseBody
+    ResponseEntity deleteStoryByid(@PathVariable Integer id) {
+        if(storyService.doesStoryExist(id)) {
+            Story story = storyRepository.findById(id).get();
+
+            story.setDeleted(true);
+            storyRepository.save(story);
+
+            return ResponseEntity.ok(new ApiResponse(true, "Story deleted!"));
         }
 
         return ResponseEntity.ok(new ApiResponse(false, "Story not found!"));
