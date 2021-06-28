@@ -1,9 +1,12 @@
 package com.dreamjournal.backendapi.controller;
 
 import com.dreamjournal.backendapi.entity.Story;
+import com.dreamjournal.backendapi.entity.User;
 import com.dreamjournal.backendapi.model.response.ApiResponse;
 import com.dreamjournal.backendapi.repository.StoryRepository;
+import com.dreamjournal.backendapi.repository.UserRepository;
 import com.dreamjournal.backendapi.service.StoryService;
+import com.dreamjournal.backendapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,12 @@ public class StoryController {
     private StoryRepository storyRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
     private StoryService storyService;
 
     @GetMapping(path = "/")
@@ -31,6 +40,20 @@ public class StoryController {
         }
 
         return ResponseEntity.ok(new ApiResponse(false, "No public stories found!"));
+    }
+
+    @GetMapping(path = "/user/{id}")
+    public @ResponseBody
+    ResponseEntity getAllStoriesByUserId(@PathVariable Integer id) {
+        if(userService.doesUserExist(id)) {
+            User user = userRepository.findById(id).get();
+
+            List<Story> storyList = storyRepository.findByCreatedBy(user);
+
+            return ResponseEntity.ok(new ApiResponse(true, storyList));
+        }
+
+        return ResponseEntity.ok(new ApiResponse(false, "No user with that id found!"));
     }
 
     @PostMapping(path = "/add")

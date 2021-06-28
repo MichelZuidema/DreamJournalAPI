@@ -27,7 +27,6 @@ public class Story extends BaseEntity {
     @Column(name = "secure")
     private Boolean secure;
 
-    @NotBlank
     @Column(name = "password")
     @Size(max = 100)
     private String password;
