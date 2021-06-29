@@ -1,6 +1,5 @@
 package com.dreamjournal.backendapi.service;
 
-import com.dreamjournal.backendapi.entity.Story;
 import com.dreamjournal.backendapi.entity.User;
 import com.dreamjournal.backendapi.model.response.ApiResponse;
 import com.dreamjournal.backendapi.repository.UserRepository;
