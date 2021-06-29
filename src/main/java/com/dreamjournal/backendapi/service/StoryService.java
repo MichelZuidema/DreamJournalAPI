@@ -15,7 +15,7 @@ public class StoryService {
     private StoryRepository storyRepository;
 
     public ApiResponse validateStory(Story storyRequest) {
-        if(StringUtils.isAnyEmpty(storyRequest.getContent(), storyRequest.getSecure().toString())) {
+        if (StringUtils.isAnyEmpty(storyRequest.getContent(), storyRequest.getSecure().toString())) {
             return new ApiResponse(false, "The story request was not valid, please try again.");
         }
 
