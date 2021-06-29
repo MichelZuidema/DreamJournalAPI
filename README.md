@@ -14,11 +14,11 @@
 
 <br>
 
-###Requirements
+### Requirements
 1. Local Apache and MySQL server.
 2. Java 14.
 
-###Setup
+### Setup
 1. Clone or download this repository (DreamJournalAPI)
 2. Insert "dreamjournal_db.sql" in your local MySQL server.
 3. Open this project in IntelliJ.
