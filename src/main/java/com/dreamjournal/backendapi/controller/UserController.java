@@ -27,7 +27,7 @@ public class UserController {
     ResponseEntity register(@RequestBody User user) {
         ApiResponse validateUser = userService.validateUser(user);
 
-        if(!validateUser.getSuccess()) {
+        if (!validateUser.getSuccess()) {
             return ResponseEntity.ok(new ApiResponse(false, validateUser.getMessage()));
         }
 

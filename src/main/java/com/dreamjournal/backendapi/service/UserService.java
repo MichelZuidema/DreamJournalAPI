@@ -15,11 +15,11 @@ public class UserService {
     private UserRepository userRepository;
 
     public ApiResponse validateUser(User userRequest) {
-        if(StringUtils.isAnyEmpty(userRequest.getName(), userRequest.getPassword())) {
+        if (StringUtils.isAnyEmpty(userRequest.getName(), userRequest.getPassword())) {
             return new ApiResponse(false, "The registration request was not valid, please try again.");
         }
 
-        if(userRepository.existsByName(userRequest.getName())) {
+        if (userRepository.existsByName(userRequest.getName())) {
             return new ApiResponse(false, "The given name is already in use!");
         }
 
@@ -35,7 +35,7 @@ public class UserService {
     public Boolean doesUserExistWithName(String name) {
         User user = userRepository.findByName(name);
 
-        if(user != null)
+        if (user != null)
             return true;
 
         return false;

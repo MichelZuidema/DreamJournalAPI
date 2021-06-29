@@ -1,9 +1,5 @@
 package com.dreamjournal.backendapi.entity.base;
 
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +8,17 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 
 @MappedSuperclass
 @JsonIgnoreProperties(
         value = {"createdAt", "updatedAt"},
         allowGetters = true
 )
-@Getter @Setter
+@Getter
+@Setter
 public abstract class BaseEntity implements Serializable {
     @CreatedDate
     @Column(name = "created_at")

@@ -35,7 +35,7 @@ public class StoryController {
     ResponseEntity getAllStories() {
         ArrayList<Story> stories = (ArrayList<Story>) storyRepository.findByDeleted(false);
 
-        if(stories.size() > 0) {
+        if (stories.size() > 0) {
             return ResponseEntity.ok(new ApiResponse(true, stories));
         }
 
@@ -45,7 +45,7 @@ public class StoryController {
     @GetMapping(path = "/user/{id}")
     public @ResponseBody
     ResponseEntity getAllStoriesByUserId(@PathVariable Integer id) {
-        if(userService.doesUserExist(id)) {
+        if (userService.doesUserExist(id)) {
             User user = userRepository.findById(id).get();
 
             List<Story> storyList = storyRepository.findByCreatedBy(user);
@@ -57,10 +57,11 @@ public class StoryController {
     }
 
     @PostMapping(path = "/add")
-    public @ResponseBody ResponseEntity addStory(@RequestBody Story story) {
+    public @ResponseBody
+    ResponseEntity addStory(@RequestBody Story story) {
         ApiResponse validateStory = storyService.validateStory(story);
 
-        if(!validateStory.getSuccess()) {
+        if (!validateStory.getSuccess()) {
             return ResponseEntity.ok(new ApiResponse(false, validateStory.getMessage()));
         }
 
@@ -72,7 +73,7 @@ public class StoryController {
     @GetMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity getStoryById(@PathVariable Integer id) {
-        if(storyService.doesStoryExist(id)) {
+        if (storyService.doesStoryExist(id)) {
             Story story = storyRepository.findById(id).get();
 
             return ResponseEntity.ok(new ApiResponse(true, story));
@@ -84,7 +85,7 @@ public class StoryController {
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity deleteStoryByid(@PathVariable Integer id) {
-        if(storyService.doesStoryExist(id)) {
+        if (storyService.doesStoryExist(id)) {
             Story story = storyRepository.findById(id).get();
 
             story.setDeleted(true);
@@ -101,7 +102,7 @@ public class StoryController {
     ResponseEntity getPublicStories() {
         List<Story> stories = storyRepository.findBySecure(false);
 
-        if(stories.size() > 0) {
+        if (stories.size() > 0) {
             return ResponseEntity.ok(new ApiResponse(true, stories));
         }
 
@@ -113,7 +114,7 @@ public class StoryController {
     ResponseEntity getPrivateStories() {
         List<Story> stories = storyRepository.findBySecure(true);
 
-        if(stories.size() > 0) {
+        if (stories.size() > 0) {
             return ResponseEntity.ok(new ApiResponse(true, stories));
         }
 
