@@ -21,7 +21,7 @@ public class Story extends BaseEntity {
 
     @NotBlank
     @Column(name = "content")
-    @Size(max = 100)
+    @Size(max = 255)
     private String content;
 
     @Column(name = "secure")
